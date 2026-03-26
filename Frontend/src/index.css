@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Colors - Easy to change */
+  --color-primary: #02f5a1;
+  --color-primary-hover: #00d68a;
+  --color-primary-muted: rgba(2, 245, 161, 0.15);
+  --color-primary-dark: #00a86b;
+
+  /* Background Colors */
+  --color-bg-primary: #07191e;
+  --color-bg-secondary: #0d2329;
+  --color-bg-tertiary: #132d34;
+  --color-bg-card: #0a1c21;
+  --color-bg-hover: rgba(2, 245, 161, 0.08);
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-text-accent: #02f5a1;
+
+  /* Border Colors */
+  --color-border: #1e3a44;
+  --color-border-light: #2a4a53;
+
+  /* Status Colors */
+  --color-success: #02f5a1;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+}
+
+/* Base styles using CSS variables */
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Custom utility classes for easy theming */
+@layer utilities {
+  .bg-primary { background-color: var(--color-bg-primary); }
+  .bg-secondary { background-color: var(--color-bg-secondary); }
+  .bg-tertiary { background-color: var(--color-bg-tertiary); }
+  .bg-card { background-color: var(--color-bg-card); }
+  .bg-hover:hover { background-color: var(--color-bg-hover); }
+
+  .text-primary { color: var(--color-text-primary); }
+  .text-secondary { color: var(--color-text-secondary); }
+  .text-muted { color: var(--color-text-muted); }
+  .text-accent { color: var(--color-text-accent); }
+
+  .border-default { border-color: var(--color-border); }
+  .border-light { border-color: var(--color-border-light); }
+
+  .from-primary { --tw-gradient-from: var(--color-primary); }
+  .to-primary { --tw-gradient-to: var(--color-primary-dark); }
+}
+
+/* Button primary */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 0 20px rgba(2, 245, 161, 0.3);
+}
+
+/* Input styles */
+.input-field {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.input-field:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-muted);
+}
+
+/* Card styles */
+.card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+}
+
+/* Sidebar active state */
+.nav-active {
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+}
+
+/* Gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Background animations */
+@keyframes slow-zoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Day-Night Ocean Animation */
+.day-night-ocean {
+  position: relative;
+  overflow: hidden;
+}
+
+.day-sky {
+  animation: dayNight 20s infinite;
+}
+
+.day-night-overlay {
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,0.3) 0%, 
+    rgba(0,0,0,0.1) 50%, 
+    rgba(0,0,0,0.4) 100%
+  );
+  animation: overlayDayNight 20s infinite;
+}
+
+@keyframes dayNight {
+  0%, 100% {
+    background: linear-gradient(to bottom, #87CEEB 0%, #B0E0E6 50%, #FFE4B5 100%);
+  }
+  25% {
+    background: linear-gradient(to bottom, #FF7F50 0%, #FFA500 50%, #FFD700 100%);
+  }
+  50%, 75% {
+    background: linear-gradient(to bottom, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+  }
+}
+
+@keyframes overlayDayNight {
+  0%, 100% {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 100%);
+  }
+  25% {
+    background: linear-gradient(to bottom, rgba(255,100,0,0.2) 0%, rgba(255,150,0,0.1) 50%, rgba(0,0,0,0.3) 100%);
+  }
+  50%, 75% {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%);
+  }
+}
+
+@keyframes sun {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(100px); opacity: 0; }
+}
+
+.animate-sun {
+  animation: sun 20s infinite;
+}
+
+@keyframes moon {
+  0%, 100% { opacity: 0; transform: translateX(-50%) translateY(50px); }
+  50%, 75% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.animate-moon {
+  animation: moon 20s infinite;
+}
+
+@keyframes cloud {
+  0%, 100% { transform: translateX(0); opacity: 0.8; }
+  50% { transform: translateX(30px); opacity: 0.4; }
+}
+
+.animate-cloud {
+  animation: cloud 15s infinite ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 5s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 10s;
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+}
+
+.ocean-waves {
+  animation: wave 8s infinite ease-in-out;
+}
+
+.stars {
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, white, transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 160px 120px, white, transparent);
+  background-size: 200px 150px;
+  animation: stars 20s infinite;
+}
+
+@keyframes stars {
+  0%, 100% { opacity: 0; }
+  50%, 75% { opacity: 1; }
+}

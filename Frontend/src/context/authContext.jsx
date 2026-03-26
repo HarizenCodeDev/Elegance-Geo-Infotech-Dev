@@ -1,0 +1,69 @@
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import axios from "axios";
+
+const AuthContext = createContext(null);
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const initAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const res = await axios.get(`${API_BASE}/api/auth/profile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUser(res.data.user);
+      } catch {
+        localStorage.removeItem("token");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
+  }, []);
+
+  const login = useCallback((userData) => {
+    setUser(userData);
+  }, []);
+
+  const logout = useCallback(() => {
+    setUser(null);
+    localStorage.removeItem("token");
+  }, []);
+
+  const updateAvatar = useCallback((avatarUrl) => {
+    setUser((prev) => (prev ? { ...prev, avatar: avatarUrl } : prev));
+  }, []);
+
+  const updateUser = useCallback((updates) => {
+    setUser((prev) => (prev ? { ...prev, ...updates } : prev));
+  }, []);
+
+  return (
+    <AuthContext.Provider
+      value={{ user, login, logout, updateAvatar, updateUser, loading }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return ctx;
+};
+
+export default AuthProvider;
