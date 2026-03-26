@@ -4,10 +4,10 @@
 
 :root {
   /* Primary Colors - Easy to change */
-  --color-primary: #02f5a1;
-  --color-primary-hover: #00d68a;
+  --color-primary: gray;
+  --color-primary-hover: gray;
   --color-primary-muted: rgba(2, 245, 161, 0.15);
-  --color-primary-dark: #00a86b;
+  --color-primary-dark: gray;
 
   /* Background Colors */
   --color-bg-primary: #07191e;
@@ -27,7 +27,7 @@
   --color-border-light: #2a4a53;
 
   /* Status Colors */
-  --color-success: #02f5a1;
+  --color-success: gray;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-info: #3b82f6;
